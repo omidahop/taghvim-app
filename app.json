@@ -10,7 +10,8 @@
     "ios": {
       "icon": "./assets/expo.icon"
     },
-    "android": { "package": "com.taghvim.app",
+    "android": {
+      "package": "com.taghvim.app",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -33,7 +34,8 @@
           "imageWidth": 76
         }
       ],
-      "expo-sqlite"
+      "expo-sqlite",
+      "expo-speech-recognition"
     ],
     "experiments": {
       "typedRoutes": true,
