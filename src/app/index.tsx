@@ -4,7 +4,8 @@ import jalaliMoment from 'jalali-moment';
 import moment from 'moment';
 import { Ionicons } from '@expo/vector-icons';
 import { getShiftForDate, getTasksForDate } from '../database/db';
-import { useIsFocused } from '@react-navigation/native';
+import { useFocusEffect } from 'expo-router';
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function HomeScreen() {
@@ -15,7 +16,6 @@ export default function HomeScreen() {
   const [currentDate, setCurrentDate] = useState(isRtl ? jalaliMoment() : moment());
   const [calendarData, setCalendarData] = useState<Record<number, { shift: string; dots: string[] }>>({});
   const [todayTasks, setTodayTasks] = useState<any[]>([]);
-  const isFocused = useIsFocused();
 
   // If language switches, update date object type
   useEffect(() => {
@@ -50,11 +50,11 @@ export default function HomeScreen() {
     setTodayTasks(getTasksForDate(todayStr) as any[]);
   };
 
-  useEffect(() => {
-    if (isFocused) {
+  useFocusEffect(
+    useCallback(() => {
       loadMonthData();
-    }
-  }, [currentDate, isFocused, i18n.language]);
+    }, [currentDate, i18n.language])
+  );
 
   const renderCalendar = () => {
     let days = [];
@@ -150,3 +150,4 @@ const styles = StyleSheet.create({
   fabContainer: { position: 'absolute', bottom: 30, alignSelf: 'center' },
   fab: { width: 70, height: 70, borderRadius: 35, backgroundColor: '#2563eb', justifyContent: 'center', alignItems: 'center', elevation: 5 }
 });
+
